@@ -9,10 +9,11 @@ import {
 } from "../controllers/couponController";
 
 const router = express.Router();
+router.use(authenticateJwt);
 
-router.get("/", authenticateJwt, isSuperAdmin, fetchAllCoupons);
-router.post("/create-coupon", authenticateJwt, isSuperAdmin, createCoupon);
-router.delete("/:id", authenticateJwt, isSuperAdmin, deleteCoupon);
+router.get("/", fetchAllCoupons);
+router.post("/create-coupon", isSuperAdmin, createCoupon);
+router.delete("/:id", isSuperAdmin, deleteCoupon);
 
 // router.get("/:id", authenticateJwt, getCouponById);
 // router.put("/:id", authenticateJwt, isSuperAdmin, updateCoupon);

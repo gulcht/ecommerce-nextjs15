@@ -13,33 +13,12 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useProductStore } from "@/store/useProductStore";
+import { brands, categories, colors, sizes } from "@/utils/config";
 import { Upload } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { toast } from "sonner";
-
-const categories = [
-  "Fashion",
-  "Electronics",
-  "Hand Bag",
-  "Shoes",
-  "Wallet",
-  "Sunglass",
-  "Cap",
-];
-
-const sizes = ["XS", "S", "M", "L", "XL", "2XL", "3XL"];
-const colors = [
-  { name: "navy", class: "bg-blue-900" }, // สีกรมท่า
-  { name: "red", class: "bg-red-600" }, // สีแดง
-  { name: "green", class: "bg-green-500" }, // สีเขียว
-  { name: "yellow", class: "bg-yellow-400" }, // สีเหลือง
-  { name: "purple", class: "bg-purple-700" }, // สีม่วง
-  { name: "orange", class: "bg-orange-500" }, // สีส้ม
-  { name: "teal", class: "bg-teal-500" }, // สีเขียวอมฟ้า
-];
-const brand = ["Nike", "Adidas", "Puma", "Reebok", "Under Armour"];
 
 interface FormState {
   name: string;
@@ -95,7 +74,7 @@ function SuperAdminManageProductPage() {
   }, [isEditMode, getCurrentEditProductId, getProductById]);
 
   const handleInputChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setFormState((prev) => ({
       ...prev,
@@ -112,13 +91,13 @@ function SuperAdminManageProductPage() {
 
   const handleToggleSize = (size: string) => {
     setSelectedSizes((prev) =>
-      prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size],
+      prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size]
     );
   };
 
   const handleToggleColor = (color: string) => {
     setSelectedColors((prev) =>
-      prev.includes(color) ? prev.filter((c) => c !== color) : [...prev, color],
+      prev.includes(color) ? prev.filter((c) => c !== color) : [...prev, color]
     );
   };
 
@@ -224,7 +203,7 @@ function SuperAdminManageProductPage() {
                   <SelectValue placeholder="Select Brand" />
                 </SelectTrigger>
                 <SelectContent>
-                  {brand.map((item) => (
+                  {brands.map((item) => (
                     <SelectItem key={item} value={item.toLowerCase()}>
                       {item}
                     </SelectItem>
@@ -305,7 +284,13 @@ function SuperAdminManageProductPage() {
                     key={color.name}
                     type="button"
                     size={"sm"}
-                    className={`hover:cursor-pointer w-8 h-8 rounded-full ${color.class} ${selectedColors.includes(color.name) ? "ring-2 ring-primary ring-offset-2" : ""}`}
+                    className={`hover:cursor-pointer w-8 h-8 rounded-full ${
+                      color.class
+                    } ${
+                      selectedColors.includes(color.name)
+                        ? "ring-2 ring-primary ring-offset-2"
+                        : ""
+                    }`}
                     onClick={() => handleToggleColor(color.name)}
                   ></Button>
                 ))}

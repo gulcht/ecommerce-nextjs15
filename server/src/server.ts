@@ -6,7 +6,10 @@ import cookieParser from "cookie-parser";
 import authRoutes from "../src/routes/authRoutes";
 import productRoutes from "../src/routes/productRoutes";
 import couponRoutes from "../src/routes/couponRoutes";
+import cartRoutes from "../src/routes/cartRoutes";
 import settingRoutes from "../src/routes/settingRoutes";
+import addressRoutes from "../src/routes/addressRoutes";
+import orderRoutes from "../src/routes/orderRoutes";
 
 // load environment variables
 dotenv.config();
@@ -30,7 +33,10 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/coupons", couponRoutes);
+app.use("/api/cart", cartRoutes);
 app.use("/api/settings", settingRoutes);
+app.use("/api/address", addressRoutes);
+app.use("/api/order", orderRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

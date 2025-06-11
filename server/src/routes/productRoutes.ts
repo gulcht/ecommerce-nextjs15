@@ -6,29 +6,31 @@ import {
   deleteProduct,
   fetchAllProductsForAdmin,
   getProductById,
+  getProductsForClient,
   updateProduct,
 } from "../controllers/productContoller";
 
 const router = express.Router();
+
+router.get("/fetch-client-products", authenticateJwt, getProductsForClient);
+router.get(
+  "/admin-products",
+  authenticateJwt,
+  isSuperAdmin,
+  fetchAllProductsForAdmin
+);
+router.get("/:id", authenticateJwt, getProductById);
 
 router.post(
   "/create-product",
   authenticateJwt,
   isSuperAdmin,
   upload.array("images", 5),
-  createProduct,
+  createProduct
 );
 
-router.get(
-  "/admin-products",
-  authenticateJwt,
-  isSuperAdmin,
-  fetchAllProductsForAdmin,
-);
 router.put("/:id", authenticateJwt, isSuperAdmin, updateProduct);
 router.delete("/:id", authenticateJwt, isSuperAdmin, deleteProduct);
 
-router.get("/:id", authenticateJwt, getProductById);
-// router.get("/fetch-client-products", authenticateJwt, getProducts);
 //
 export default router;
